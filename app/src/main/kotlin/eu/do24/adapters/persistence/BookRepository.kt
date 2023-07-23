@@ -1,24 +1,29 @@
 package eu.do24.adapters.persistence;
 
-import eu.do24.domain.ports.repos.Book
+import eu.do24.domain.models.Book
 import eu.do24.domain.ports.repos.BookRepositoryI
 
+
+/**
+ * The book entity
+ */
+data class BookE(val id: Int, val title: String, val author: String, val year: Int)
 class BookFilter(val year: Int)
 
 class BookRepository : BookRepositoryI {
     private val books = listOf(
-        Book(1, "Kotlin in Action", "Dmitry Jemerov", 2017),
-        Book(2, "Atomic Kotlin", "Bruce Eckel", 2019),
-        Book(3, "Kotlin for Android Developers", "Antonio Leiva", 2018),
-        Book(4, "Kotlin for Java Developers", "Svetlana Isakova", 2019),
-        Book(5, "Hexagonal Architecture with Kotlin", "Tomasz Nurkiewicz", 2018),
-        Book(6, "Kotlin Blueprints", "Ashish Belagali", 2017),
-        Book(7, "Kotlin for Enterprise Applications using Java EE", "Raghavendra Rao K", 2018),
-        Book(8, "Kotlin Programming Cookbook", "Aanand Shekhar Roy", 2018),
-        Book(9, "Kotlin Standard Library Cookbook", "Samuel Urbanowicz", 2008),
-        Book(10, "Kotlin for Android App Development", "Peter Sommerhoff", 2017),
-        Book(11, "Kotlin Programming By Example", "Iyanu Adelekan", 2018),
-        Book(12, "Kotlin for Android Development", "Peter Späth", 2017),
+        BookE(1, "Kotlin in Action", "Dmitry Jemerov", 2017),
+        BookE(2, "Atomic Kotlin", "Bruce Eckel", 2019),
+        BookE(3, "Kotlin for Android Developers", "Antonio Leiva", 2018),
+        BookE(4, "Kotlin for Java Developers", "Svetlana Isakova", 2019),
+        BookE(5, "Hexagonal Architecture with Kotlin", "Tomasz Nurkiewicz", 2018),
+        BookE(6, "Kotlin Blueprints", "Ashish Belagali", 2017),
+        BookE(7, "Kotlin for Enterprise Applications using Java EE", "Raghavendra Rao K", 2018),
+        BookE(8, "Kotlin Programming Cookbook", "Aanand Shekhar Roy", 2018),
+        BookE(9, "Kotlin Standard Library Cookbook", "Samuel Urbanowicz", 2008),
+        BookE(10, "Kotlin for Android App Development", "Peter Sommerhoff", 2017),
+        BookE(11, "Kotlin Programming By Example", "Iyanu Adelekan", 2018),
+        BookE(12, "Kotlin for Android Development", "Peter Späth", 2017),
     )
 
 //    fun get(ctx: PageContext): Page<Book> {
@@ -64,10 +69,10 @@ class BookRepository : BookRepositoryI {
 //    }
 
     override fun getBatch(batchSize: Int, offset: Int): List<Book> {
-        return books.subList(offset, offset + batchSize)
+        return books.subList(offset, offset + batchSize).map { Book(it.id, it.title, it.author, it.year) }
     }
 
     override fun getById(id: Int): Book? {
-        return books.find { it.id == id }
+        return books.find { it.id == id }.let { Book(it!!.id, it.title, it.author, it.year) }
     }
 }
