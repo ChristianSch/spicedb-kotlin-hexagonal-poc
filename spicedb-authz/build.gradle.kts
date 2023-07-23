@@ -18,7 +18,6 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:1.54.1")
     implementation("io.grpc:grpc-stub:1.54.1")
     implementation("ch.qos.logback:logback-classic:1.2.9")
-    testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.testcontainers:testcontainers:1.18.3")
     testImplementation("org.testcontainers:junit-jupiter:1.18.3")

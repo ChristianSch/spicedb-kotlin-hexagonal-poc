@@ -1,8 +1,10 @@
-package eu.do24.core.books
+package eu.do24.domain.usecases.books
 
-import eu.do24.core.domain.Book
+
+import eu.do24.domain.models.Book
+import eu.do24.domain.ports.authz.BookPermissionCheck
 import eu.do24.domain.ports.authz.CanAccessBookI
-import eu.do24.ports.repos.BookRepositoryI
+import eu.do24.domain.ports.repos.BookRepositoryI
 
 /**
  * GetBook is a use case that gets a book from the repository.
@@ -12,7 +14,7 @@ import eu.do24.ports.repos.BookRepositoryI
  */
 class GetBook(private val check: CanAccessBookI, private val repo: BookRepositoryI) {
     fun get(userId: String, bookId: Int): Book? {
-        if (check.canAccessBook(userId, bookId.toString())) {
+        if (check.canAccessBook(BookPermissionCheck(bookId.toString(), userId))) {
             val b = repo.getById(bookId)
             return Book(id = b!!.id, title = b.title, author = b.author, year = b.year)
         }

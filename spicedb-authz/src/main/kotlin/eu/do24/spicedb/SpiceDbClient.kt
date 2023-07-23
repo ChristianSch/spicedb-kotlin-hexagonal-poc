@@ -56,7 +56,7 @@ class SpiceDbClient(private val host: String, private val port: Int, private val
      * Add a permission to the SpiceDB database. Format:
      * `obj:objId#permission@subject:subjectId`
      *
-     * Note that the [relation] is a relation, not the permission itself. I.e.:
+     * Note that the [permission.permission] is a relation, not the permission itself. I.e.:
      * `book->viewer` instead of `book->view`.
      *
      * Example:

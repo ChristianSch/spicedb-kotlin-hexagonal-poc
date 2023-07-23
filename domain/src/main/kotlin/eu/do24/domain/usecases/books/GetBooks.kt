@@ -1,10 +1,11 @@
-package eu.do24.core.books
+package eu.do24.domain.usecases.books
 
-import eu.do24.core.domain.Book
+import eu.do24.domain.models.Book
+import eu.do24.domain.ports.authz.BookPermissionCheck
 import eu.do24.domain.ports.authz.CanAccessBookI
-import eu.do24.ports.pagination.Page
+import eu.do24.domain.ports.pagination.Page
 import eu.do24.ports.pagination.PageContext
-import eu.do24.ports.repos.BookRepositoryI
+import eu.do24.domain.ports.repos.BookRepositoryI
 
 class GetBooks(private val checkedBooksI: CanAccessBookI, private val repo: BookRepositoryI) {
     /**
@@ -56,7 +57,7 @@ class GetBooks(private val checkedBooksI: CanAccessBookI, private val repo: Book
         while (books.size < ctx.pageSize) {
             // get the next batch of books
             val b = repo.getBatch(ctx.pageSize, books.size)
-                .filter { checkedBooksI.canAccessBook(userId, it.id.toString()) }
+                .filter { checkedBooksI.canAccessBook(BookPermissionCheck(userId, it.id.toString())) }
 
             if (b.isEmpty()) {
                 // no more books

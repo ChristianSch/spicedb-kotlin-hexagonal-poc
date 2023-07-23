@@ -1,7 +1,7 @@
 package eu.do24.adapters.persistence;
 
-import eu.do24.ports.repos.Book
-import eu.do24.ports.repos.BookRepositoryI
+import eu.do24.domain.ports.repos.Book
+import eu.do24.domain.ports.repos.BookRepositoryI
 
 class BookFilter(val year: Int)
 

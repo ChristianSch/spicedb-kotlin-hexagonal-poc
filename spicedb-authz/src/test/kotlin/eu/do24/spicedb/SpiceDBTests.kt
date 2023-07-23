@@ -2,6 +2,7 @@ package eu.do24.spicedb
 
 import assertk.assertThat
 import assertk.assertions.*
+import eu.do24.domain.ports.authz.Permission
 import io.grpc.StatusRuntimeException
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -51,7 +52,7 @@ class SpiceDBTests {
 
         // When
         // We add a permission to access a book
-        spiceDB.addPermission("book", "1", "user", user, "viewer")
+        spiceDB.addPermission(Permission("book", "1", "user", user, "viewer"))
 
         // Then
         // SpiceDB has the permission
@@ -82,7 +83,7 @@ class SpiceDBTests {
             spiceDB.writeSchema(schema)
 
             // That has a permission to access a book
-            spiceDB.addPermission("book", "1", "user", user, "viewer")
+            spiceDB.addPermission(Permission("book", "1", "user", user, "viewer"))
 
             // When
             // We check if a user has permission to access a book
@@ -115,7 +116,7 @@ class SpiceDBTests {
             spiceDB.writeSchema(schema)
 
             // That has a permission to access a book
-            spiceDB.addPermission("book", "1", "user", user, "viewer")
+            spiceDB.addPermission(Permission("book", "1", "user", user, "viewer"))
 
             // When
             // We check if a user has permission to access a book
@@ -154,10 +155,10 @@ class SpiceDBTests {
 
             // When
             // We add a permission to access book 1
-            spiceDB.addPermission("book", "1", "user", user, "viewer")
+            spiceDB.addPermission(Permission("book", "1", "user", user, "viewer"))
 
             // And book 2
-            spiceDB.addPermission("book", "2", "user", user, "viewer")
+            spiceDB.addPermission(Permission("book", "2", "user", user, "viewer"))
 
             // Then
             // The permission check returns true
@@ -194,7 +195,7 @@ class SpiceDBTests {
 
             // When
             // We add a permission to access book 1
-            spiceDB.addPermission("book", "1", "user", user, "viewer")
+            spiceDB.addPermission(Permission("book", "1", "user", user, "viewer"))
 
             // Then
             // The permission check is false because the user isn't allowed to view book:2
@@ -234,7 +235,7 @@ class SpiceDBTests {
 
             // And permissions
             for (i in 1..10) {
-                spiceDB.addPermission("book", i.toString(), "user", user, "viewer")
+                spiceDB.addPermission(Permission("book", i.toString(), "user", user, "viewer"))
             }
 
             // When
@@ -272,7 +273,7 @@ class SpiceDBTests {
 
             // And permissions
             for (i in 1..10) {
-                spiceDB.addPermission("book", i.toString(), "user", user, "viewer")
+                spiceDB.addPermission(Permission("book", i.toString(), "user", user, "viewer"))
             }
 
             // When
@@ -312,7 +313,7 @@ class SpiceDBTests {
 
             // And permissions
             for (i in 1..10) {
-                spiceDB.addPermission("book", i.toString(), "user", user, "viewer")
+                spiceDB.addPermission(Permission("book", i.toString(), "user", user, "viewer"))
             }
 
             // And a first page

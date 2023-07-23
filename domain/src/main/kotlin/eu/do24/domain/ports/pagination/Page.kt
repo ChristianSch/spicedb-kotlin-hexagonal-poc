@@ -1,4 +1,4 @@
-package eu.do24.ports.pagination
+package eu.do24.domain.ports.pagination
 
 // implements cursor-based pagination holding an entity of type T
 data class Page<T>(

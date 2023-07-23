@@ -1,4 +1,4 @@
-package eu.do24.ports.repos
+package eu.do24.domain.ports.repos
 
 data class Book(val id: Int, val title: String, val author: String, val year: Int)
 

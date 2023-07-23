@@ -1,5 +1,14 @@
 package eu.do24.adapters.persistence
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isNotNull
+import assertk.assertions.isNull
+import eu.do24.domain.ports.authz.BookPermissionCheck
+import eu.do24.domain.ports.authz.CanAccessBookI
+import eu.do24.domain.usecases.books.GetBook
+import eu.do24.domain.ports.repos.Book
+import eu.do24.domain.ports.repos.BookRepositoryI
 import org.junit.jupiter.api.Test
 
 /**
@@ -8,8 +17,8 @@ import org.junit.jupiter.api.Test
 class GetBookTests {
     // mock adapters
     private class CheckBook(private val userIdsWithPermission: List<String>) : CanAccessBookI {
-        override fun canAccessBook(userId: String, bookId: String): Boolean {
-            return userIdsWithPermission.contains(userId)
+        override fun canAccessBook(permission: BookPermissionCheck): Boolean {
+            return userIdsWithPermission.contains(permission.userId)
         }
     }
 
@@ -41,10 +50,10 @@ class GetBookTests {
 
         // Then
         // The use case should return the book with the correct data
-        assert(book?.id == 1)
-        assert(book?.title == "The Hobbit")
-        assert(book?.author == "J.R.R. Tolkien")
-        assert(book?.year == 1937)
+        assertThat(book?.id).isEqualTo(1)
+        assertThat(book?.title).isEqualTo("The Hobbit")
+        assertThat(book?.author).isEqualTo("J.R.R. Tolkien")
+        assertThat(book?.year).isEqualTo(1937)
     }
 
     @Test
@@ -64,7 +73,7 @@ class GetBookTests {
 
         // Then
         // The use case should return the book
-        assert(book != null)
+        assertThat(book).isNotNull()
     }
 
     @Test
@@ -84,6 +93,6 @@ class GetBookTests {
 
         // Then
         // The use case should return null
-        assert(book == null)
+        assertThat(book).isNull()
     }
 }
