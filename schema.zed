@@ -1,0 +1,6 @@
+definition book {
+    relation viewer: user
+    permission view = viewer
+}
+
+definition user {}
